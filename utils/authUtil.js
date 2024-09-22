@@ -29,6 +29,9 @@ const userDataValidate = ({name, email, username, password}) => {
         if (typeof username !== "string") reject("Username is not a text");
         if (typeof password !== "string") reject("Password is not a text");
 
+        // Email validation
+        if (!isEmailValidate({key: email})) reject("Email format is incorrect");
+
 /* Extra Validation , Add these after the whole project is complete.
 
         // Name validation
@@ -40,8 +43,7 @@ const userDataValidate = ({name, email, username, password}) => {
         if (!/^[a-zA-Z0-9._]+$/.test(username)) reject("Username can only contain letters, numbers, dots, and underscores");
         
 
-        // Email validation
-        if (!isEmailValidate({key: email})) reject("Email format is incorrect");
+
 
         // Password validation
         if (password.length < 8) reject("Password must be at least 8 characters long");
@@ -55,4 +57,4 @@ const userDataValidate = ({name, email, username, password}) => {
     });
 }
 
-module.exports = {userDataValidate};
+module.exports = {userDataValidate, isEmailValidate};
