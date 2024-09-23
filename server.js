@@ -31,8 +31,6 @@ mongoose
 app.set("view engine", "ejs"); //Set EJS as the template engine in express.
 app.use(express.urlencoded({ extended: true })); //form body parser
 app.use(express.json());
-//Task 4.3  check this middle ware  and add comment form gpt 
-// app.use(express.static("public"));
 app.use(
   session({
     secret: process.env.SECRET_KEY,
@@ -41,6 +39,7 @@ app.use(
     saveUninitialized: false,
   })
 );
+app.use(express.static("public")); // Inbuilt middleware to serve static files (CSS, JS, images) from the 'public' directory
 
 //API's
 app.get("/", (req, res) => {
@@ -224,7 +223,7 @@ app.post("/logout-from-all", isAuth, async (req, res) => {
       success: false,
       message:
         "An error occurred while logging out from all devices. Please try again later.",
-      error: error,
+      error: error.message || "ERROR",
     });
   }
 });
@@ -244,8 +243,9 @@ app.post("/create-item", isAuth, async (req, res) => {
   } catch (error) {
     return res.send({
       status: 400,
-      message: "Todo validation failed. Please check the todo and try again.",
-      error: error,
+      //message: "Todo validation failed. Please check the todo and try again.",
+      //error: error,
+      message:error,
     });
   }
 
@@ -272,7 +272,6 @@ app.post("/create-item", isAuth, async (req, res) => {
   }
 });
 
-//Task 4.1  add a edge case in this 
 // Retrieve todos for the authenticated user
 app.get("/read-item", isAuth, async (req, res) => {
   const username = req.session.user.username;
@@ -281,16 +280,13 @@ app.get("/read-item", isAuth, async (req, res) => {
     const todoDb = await todoModel.find({ username });
     //console.log("line269,", todoDb);
     
-    //Check if if there is no todo
-    //Task 4.1  complete this code and add Gpt comment
-    // if(todoDb.length===0){
-    //   res.send({
-    //     status:204
-    //   })
-    // }
-    
-    
-    
+     // Check if no todos exist for the user
+   if(todoDb.length === 0){
+    return res.send({
+      status:204,
+      message: "No todos found. You're all caught up! Enjoy your day!",
+    })
+   }
     return res.send({
       status: 200,
       message: "Todos retrieved successfully.",
@@ -301,12 +297,12 @@ app.get("/read-item", isAuth, async (req, res) => {
       status: 500,
       message:
         "An error occurred while retrieving todos. Please try again later.",
-      error: error,
+      error: error.message || "Internal Server Error",
     });
   }
 });
 
-//Task 4.24  upadte errror may be in differnet  project
+
 //Edit todos
 app.post("/edit-item", isAuth, async (req, res) => {
   //console.log("line285", req.body);
@@ -319,8 +315,9 @@ app.post("/edit-item", isAuth, async (req, res) => {
    // console.log("line292", error);
     return res.send({
       status: 400,
-      message: "Todo validation failed. Please check the todo and try again.",
-      error: error,
+     //message: "Todo validation failed. Please check the todo and try again.",
+     // error: error,
+     message:error,
     });
   }
 
@@ -359,7 +356,6 @@ app.post("/edit-item", isAuth, async (req, res) => {
 });
 
 
-//TAsk 4.2 check and update this
 //Delete todos
 app.post("/delete-item",isAuth,async(req,res) =>{
  const username = req.session.user.username;
@@ -377,17 +373,16 @@ app.post("/delete-item",isAuth,async(req,res) =>{
       });
     }
 
-   // Delete the todo from the database
-  // await todoModel.deleteOne({_id:todoId})
-// //Task 4.2.1. check this line
+// Delete the todo from the database
  const deletedTodoDb = await todoModel.findOneAndDelete({_id:todoId})
-return res.send({
+ // await todoModel.deleteOne({_id:todoId})
+ return res.send({
   status:200,
   message:"Todo Deleted successfully!",
   data:deletedTodoDb,
 })
   }catch(error){
-    console.log("line390",error)
+   //console.log("line390",error)
     return res.send({
       status: 500,
       message:

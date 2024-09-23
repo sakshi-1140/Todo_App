@@ -1,131 +1,146 @@
-//Task 4.6  to Task 4.48
-//Task 4.48 check all.
+window.onload = generateTodos();
 
-//window.onload() //TAsk 4.6
+function generateTodos() {
+  axios
+    .get("/read-item")
+    .then((res) => {
+      // console.log(res);
 
-//Task 4.14 check this axios for read in brrowser
-//Task 4.6.1 make this function
-function generateTodos(){ 
-    axios("/read-item",{}) // Task 4.7 complete line with body
-        .then((res=>{
-           // Task 4.8 console resp 
-            console.log(res) // 
-            //Task 4.10
-            if(res.status!==200)alert(res.data.message)
+      if (res.data.status !== 200) {
+        alert(res.data.message);
+        return;
+      }
 
-                //Taks 4.11 sote in res.dtat.data
-                //todo= rs.datat.data
+      //  console.log(res.data.data);
+      const todos = res.data.data;
 
-
-                //TAks 4.13
-                document,gstElementbID("item_list").insertAdjacentHTML("beforeEnd",
-                    todos.map((item)=>{
-                        return `<li></li>
-
-                        <buttom id = todoId`
-                    }).join("")
-                )
-        }))
-    .catch(()=>{
-        //Task 4.9
-
+      const todoListELement = document.getElementById("item_list");
+      //console.log(todoListElement);
+      todoListELement.insertAdjacentHTML(
+        "beforeend",
+        todos
+          .map((item) => {
+            return `
+            <li class="list-group-item list-group-item-action d-flex align-items-center justify-content-between">
+                <span class="item-text"> ${item.todo}</span>
+            <div>
+                <button data-id="${item._id}" class="edit-me btn btn-secondary btn-sm mr-1">Edit</button>
+                <button data-id="${item._id}" class="delete-me btn btn-danger btn-sm">Delete</button>
+            </div>
+          </li>`;
+          })
+          .join("")
+      );
     })
+    .catch((err) => console.log(err));
 }
 
-//TAsk 4.15 make event listender
-document.addEventListener("click", function(event){
-    //TAsk 4.29 check edit button
-    //Task 4.16
-    if(event.target.classList.contains("")){
-        console.log("clicled edit")
-//Task 4.18 event.target .get Attribut
-console.log("event.target")
-console.log(event.target.getAttribute("data-id"))
+document.addEventListener("click", (event) => {
+  //console.log("clicking");
+  //console.log(event.target);
+  if (event.target.classList.contains("edit-me")) {
+    //console.log("clicked on edit");
+    //console.log(event.target.getAttribute("data-id"));
+    const todoId = event.target.getAttribute("data-id");
+    const newTodo = prompt("Enter New Task");
+    //console.log(newTodo);
+    axios
+      .post("/edit-item", { newTodo, todoId })
+      .then((res) => {
+        //console.log(res);
+        if (res.data.status !== 200) {
+          alert(res.data.message);
+          return;
+        }
 
+        const todoTextElement =
+          event.target.parentElement.parentElement.querySelector(".item-text");
+        //console.log(todoTextElement)
+        todoTextElement.innerHTML = newTodo;
+      })
+      .catch((err) => console.log(err));
+  } else if (event.target.classList.contains("delete-me")) {
+    //console.log("clicked on delete");
+    //console.log(event.target.getAttribute("data-id"))
+    const todoId = event.target.getAttribute("data-id");
 
-//Task 4.19
-const todoId = event.target.getatttribut("data-id");
+    axios
+      .post("/delete-item", { todoId })
+      .then((res) => {
+        //console.log(res);
+        if (res.data.status !== 200) {
+          alert(res.data.message);
+          return;
+        }
+        const todoElement = event.target.parentElement.parentElement;
+        //console.log(todoElement);
+        todoElement.remove();
+      })
+      .catch((err) => console.log(err));
+  } else if (event.target.classList.contains("add_item")) {
+    //console.log("clicked on add item");
+    const inputElement = document.getElementById("create_field");
+    const todo = inputElement.value;
+    //console.log(todo);
 
-//Taks 4.20 
-console.log(prompt("Eneter ner aRodo data"))
+    axios
+      .post("/create-item", { todo })
+      .then((res) => {
+        // console.log(res);
+        if (res.data.status != 201) {
+          alert(res.data.message);
+          return;
+        }
 
-//ATSke 4.21
+        inputElement.value = ""; //Clear the input field
 
-const NewData = prompt("entet new rodofo text")
+        // console.log(res.data.data);
 
-  
-axios//TAsk 4.22
-.post("/edit-item",{newData,todoId})       
-.then(()=>{
-//Task 4.25
-//Task 4.26 console res
-//TAls 4.27 
-if(res.fdata.dattus!=200){
-    //alere
-}
-//TAsk 4.28 
-event.target.parentElement.parentELemt.querySletefv(".item-text").innerHtml = newData
-
-}) 
-.catch(()=>{}) //Task 4.23
-
-}
-//TAsk 4.36 chekc it delete butotn
-    // Taks 4.17
-    else if(event.target.classList.contains("")){
-        console.log("clicled delte")
-        //Task 4.30
-        const todoId
-
-        //Task 4.31
-        axios.post("/").
-        then(
-            //task 4.33 comoel
-            //taske 4.34 alear  status
-//task 4.35
-//remove todo by docume.element
-
-
-        ).
-        cathc(//TAske 4.32    
-        )
-
-
-    }
-    //TAks 4.47 ccheck add Button
-    //TAsk 4.37 //TAsk 4.37.1 Update Dashboard page 
-    else if(event.target.classList.contains("")){
-        console.log("clicled add Button")
-   
-//Task 4.38
-console.log(document.getElementById("create_filed"))
-//Task 4.39 .value()
-//TAsk 4.40 
-//const todo =
-
-//Task 4.41 
-axios.post("/")
-.then(
-    //TAks 4.43 
-    console.log(res)
-    //TAsk 4.44
-    if(res.status!=201){
-        alert
-    }
-    //Task 4.45 blanck the input filer
-    documenr.getElemtn().vlauer ="'";
-
-    //TAsk 4.46 add
-    document.getElementById("").insertAdjacentHTML("befoureend",
-        `<li> </li>`
-
-    )
-    
-)
-.cathc(
-    //task 4.42
-)
-    }
-})
-
-//TAks 4.12 html part
+        const todoListELement = document.getElementById("item_list");
+        todoListELement.insertAdjacentHTML(
+          "beforeend",
+          `<li class="list-group-item list-group-item-action d-flex align-items-center justify-content-between">
+                <span class="item-text"> ${res.data.data.todo}</span>
+            <div>
+                <button data-id="${res.data.data._id}" class="edit-me btn btn-secondary btn-sm mr-1">Edit</button>
+                <button data-id="${res.data.data._id}" class="delete-me btn btn-danger btn-sm">Delete</button>
+            </div>
+          </li>`
+        );
+      })
+      .catch((err) => console.log(err));
+  } 
+  //TASK 5.1 
+  // logout and logout-all are not oKay. see again code 
+  else if (event.target.classList.contains("logoutBtn")) {
+    //console.log("logout clicked");
+    axios
+      .post("/logout")
+      .then((res) => {
+       // console.log(res);
+        if(res.status === 200){
+             // Redirect to login page
+             window.location.href = "/login";
+             alert("Logout Successfull");
+            return;
+        }
+           
+      })
+      .catch((err) => console.log(err));
+  } else if (event.target.classList.contains("logout-All-Btn")) {
+    //console.log("logout All  clicked");
+    axios
+      .post("/logout-from-all")
+      .then((res) => {
+       // console.log(res);
+        if(res.status ===200){
+             // Redirect to login page
+             window.location.href = "/login";
+            alert("Logout Successfull");
+            return;
+        }
+           
+      })
+      .catch((err) => console.log(err));
+  }
+});
