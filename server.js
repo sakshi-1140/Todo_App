@@ -5,6 +5,8 @@ const bcrypt = require("bcryptjs");
 const session = require("express-session");
 const mongodbSession = require("connect-mongodb-session")(session);
 
+//Task 5.8 - 5.16 --(REMOVE COMMENTS)
+
 //file import
 const userModel = require("./models/userModel");
 const { userDataValidate, isEmailValidate } = require("./utils/authUtil");
@@ -173,6 +175,7 @@ app.get("/dashboard", isAuth, (req, res) => {
   return res.render("dashboardPage");
 });
 
+
 // logout
 app.post("/logout", isAuth, (req, res) => {
   //console.log("line169",req.session.id);
@@ -185,11 +188,14 @@ app.post("/logout", isAuth, (req, res) => {
         message: "Logout unsuccessful. Please try again.",
       });
     }
+``
+    return res.status(200).json("Logout Successfull");
 
-    // Redirect to login page after successful logout
-    return res.redirect("/login");
+    //  Redirect to login page after successful logout
+    // return res.redirect("/login");
   });
 });
+
 
 //Logout from all devices
 app.post("/logout-from-all", isAuth, async (req, res) => {
@@ -205,8 +211,7 @@ app.post("/logout-from-all", isAuth, async (req, res) => {
   //const sessionModel = mongoose.model("session",sessionSchema); // getting OverwriteModelError
 
   // Convert into model with overwrite check
-  const sessionModel =
-    mongoose.models.session || mongoose.model("session", sessionSchema); //Check for existing session model before defining it again.
+  const sessionModel = mongoose.models.session || mongoose.model("session", sessionSchema); //Check for existing session model before defining it again.
   //console.log("line199", sessionModel);
 
   // DB query to delete sessions
@@ -216,14 +221,15 @@ app.post("/logout-from-all", isAuth, async (req, res) => {
     }); // session.user.username won't work, thats why made it into string
     //console.log("line206 deleteDb:" , deleteDb);
 
-    // Redirect after successful logout
-    return res.redirect("/login");
+    return res.status(200).json("Logout Successfull")
+    // // Redirect after successful logout
+    // return res.redirect("/login");
   } catch (error) {
     return res.status(500).json({
       success: false,
       message:
         "An error occurred while logging out from all devices. Please try again later.",
-      error: error.message || "ERROR",
+      error: error,
     });
   }
 });
@@ -272,13 +278,29 @@ app.post("/create-item", isAuth, async (req, res) => {
   }
 });
 
+//TASk 5.16 check this
+//Task 5.8 start this code by reading whole code
 // Retrieve todos for the authenticated user
 app.get("/read-item", isAuth, async (req, res) => {
   const username = req.session.user.username;
+ 
+ //TASk 5.9 , TAsk 5.14 make it into Number
+ //const SKIP = Number(req.query.skip )|| 0;
+ //TASK 5.9.1
+ //const LIMIT = 5;
+ 
   // Find todos in the database for the specified username
   try {
+    // TASK 5.10 comment this this
     const todoDb = await todoModel.find({ username });
     //console.log("line269,", todoDb);
+
+    //match skip limit
+    //TASK 5.11 make DB call basic
+    //TASk 5.12 make DB call with only match
+    // Task 5.13 do again with Skip
+    //TASK 5.15 add Limit in call
+   // const todoDb
     
      // Check if no todos exist for the user
    if(todoDb.length === 0){
