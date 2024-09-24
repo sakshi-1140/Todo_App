@@ -32,7 +32,7 @@ const userDataValidate = ({name, email, username, password}) => {
         // Email validation
         if (!isEmailValidate({key: email})) reject("Email format is incorrect");
 
-/* Extra Validation , Add these after the whole project is complete.
+/*  // Extra Validation , Add these after the whole project is complete.
 
         // Name validation
         if (!/^[a-zA-Z\s]+$/.test(name)) reject("Name should only contain letters and spaces");
@@ -42,11 +42,8 @@ const userDataValidate = ({name, email, username, password}) => {
         if (username.length < 3 || username.length > 50) reject("Username length should be 3-50 characters");
         if (!/^[a-zA-Z0-9._]+$/.test(username)) reject("Username can only contain letters, numbers, dots, and underscores");
         
-
-
-
         // Password validation
-        if (password.length < 8) reject("Password must be at least 8 characters long");
+        if (password.length < 3) reject("Password must be at least 3 characters long");
         if (!/[A-Z]/.test(password)) reject("Password must contain at least one uppercase letter");
         if (!/[a-z]/.test(password)) reject("Password must contain at least one lowercase letter");
         if (!/[0-9]/.test(password)) reject("Password must contain at least one number");

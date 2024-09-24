@@ -5,8 +5,6 @@ const bcrypt = require("bcryptjs");
 const session = require("express-session");
 const mongodbSession = require("connect-mongodb-session")(session);
 
-//Task 5.8 - 5.16 --(REMOVE COMMENTS)
-
 //file import
 const userModel = require("./models/userModel");
 const { userDataValidate, isEmailValidate } = require("./utils/authUtil");
@@ -278,30 +276,17 @@ app.post("/create-item", isAuth, async (req, res) => {
   }
 });
 
-//TASk 5.16 check this
-//Task 5.8 start this code by reading whole code
+// TASK 5.8 -: Integrate Pagination of Api
+
 // Retrieve todos for the authenticated user
 app.get("/read-item", isAuth, async (req, res) => {
   const username = req.session.user.username;
  
- //TASk 5.9 , TAsk 5.14 make it into Number
- //const SKIP = Number(req.query.skip )|| 0;
- //TASK 5.9.1
- //const LIMIT = 5;
- 
   // Find todos in the database for the specified username
   try {
-    // TASK 5.10 comment this this
     const todoDb = await todoModel.find({ username });
     //console.log("line269,", todoDb);
 
-    //match skip limit
-    //TASK 5.11 make DB call basic
-    //TASk 5.12 make DB call with only match
-    // Task 5.13 do again with Skip
-    //TASK 5.15 add Limit in call
-   // const todoDb
-    
      // Check if no todos exist for the user
    if(todoDb.length === 0){
     return res.send({

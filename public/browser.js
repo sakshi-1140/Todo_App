@@ -1,16 +1,9 @@
 window.onload = generateTodos();
-//TASK 5.0 5.1-5.6;
-// TASK 5.17 make show more button in dashboard
-// Task 5.24 check the showMore code
-// TAsk 5.25 Check the whole code
-// Task 5.26 remove all comment
-// TASK 5.27 HW edgeCAses in show more buttom
 
-// TAsk 5.20
-//let skip = 0
+// TASK 5.8 -: Integrate Pagination of Api in '/read-item' & '.add_item' & show more Button
 function generateTodos() {
   axios
-    .get("/read-item") //TSSk 5.21 quer=? skip
+    .get("/read-item") 
     .then((res) => {
       // console.log(res);
 
@@ -21,8 +14,6 @@ function generateTodos() {
 
       //  console.log(res.data.data);
       const todos = res.data.data;
-      //TASK 5.22 & TASk 5.23 console it before and after
-      // skip +=todos.length
 
       const todoListELement = document.getElementById("item_list");
       //console.log(todoListElement);
@@ -117,7 +108,6 @@ document.addEventListener("click", (event) => {
             </div>
           </li>`
         );
-        //TASk 5.27.# skip+=1;
       })
       .catch((err) => console.log(err));
   } else if (event.target.classList.contains("logoutBtn")) {
@@ -150,8 +140,4 @@ document.addEventListener("click", (event) => {
       })
       .catch((err) => console.log(err));
   }
-  // Task 5.18
-  //else if contains ("showMoreButton"){
-  // TAsk 5.19 generateTOdo();
-  //}
 });
