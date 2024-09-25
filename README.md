@@ -5,7 +5,7 @@
 The Todo App is a web application that allows users to manage their daily tasks by creating, editing, and deleting todos. Built with Express.js and Mongoose, the application uses session-based authentication for user security and bcrypt.js for password encryption. The app features a simple UI rendered with EJS templates and ensures secure access with session management.
 
 ## Live Preview:
-- https://monefy-expense-tracker.vercel.app/
+https://todo-app-o7o7.onrender.com
 
 ## Features
 
