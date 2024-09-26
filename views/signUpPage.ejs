@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SignUp Page</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet"> <!-- Import Roboto -->
     <style>
         body {
             font-family: 'Roboto', Arial, sans-serif;
@@ -34,9 +37,10 @@
         label {
             font-size: 1rem;
             color: #333;
+            margin-bottom: 5px; /* Adjusted margin for uniformity */
         }
 
-        input[type=text], input[type=password] {
+        input[type=text], input[type=password], input[type=email] { 
             width: 100%;
             padding: 15px;
             margin: 10px 0;
@@ -61,7 +65,7 @@
 
         button:hover {
             background-color: #1C86EE; /* Slightly darker blue on hover */
-            transform: scale(1.05); /* Slight scaling effect */
+            transform: scale(1.02); /* Reduced scaling */
             box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2); /* Shadow effect */
         }
 
@@ -73,13 +77,12 @@
             display: flex;
             flex-direction: column;
         }
-
-        /* .cancelbtn {   
-        width: auto;   
-        padding: 10px 18px;  
-        margin: 10px 5px;  
-    }   
-         */
+        .cursor {
+            cursor: pointer;
+        }
+        p {
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -90,7 +93,7 @@
             <input type="text" placeholder="Enter Name" name="name" required>
 
             <label for="email">Email:</label>
-            <input type="text" placeholder="Enter Email" name="email" required>
+            <input type="email" placeholder="Enter Email" name="email" required> <!-- Changed to email type -->
 
             <label for="username">Username:</label>
             <input type="text" placeholder="Enter Username" name="username" required>
@@ -99,7 +102,9 @@
             <input type="password" placeholder="Enter Password" name="password" required>
 
             <button type="submit">Sign Up</button>
+            <p>Already have an account?<span class="blue-text redirect-login cursor"> Login</span></p>
         </div>
     </form>
+    <script src="/signup.js"></script>
 </body>
 </html>

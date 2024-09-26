@@ -1,92 +1,118 @@
-<!DOCTYPE html>   
-<html lang="en">   
-<head>  
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Page</title>  
-    <style>   
-        body {  
-            font-family: 'Roboto', Arial, sans-serif;  
-            background-color: #f4f4f9;  
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }  
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login Page</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet"> <!-- Import Roboto -->
+    <style>
+      body {
+        font-family: "Roboto", Arial, sans-serif;
+        background-color: #f4f4f9;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
 
-        form {
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-            padding: 40px;
-            max-width: 400px;
-            width: 100%;
-            box-sizing: border-box;
-        }
+      form {
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        padding: 40px;
+        max-width: 400px;
+        width: 100%;
+        box-sizing: border-box;
+      }
 
-        h2 {
-            text-align: center;
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-        }
+      h2 {
+        text-align: center;
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+      }
 
-        label {
-            font-size: 1rem;
-            color: #333;
-        }
+      label {
+        font-size: 1rem;
+        color: #333;
+      }
 
-        input[type=text], input[type=password] {
-            width: 100%;
-            padding: 15px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-sizing: border-box;
-            font-size: 1rem;
-        }
+      input[type="text"],
+      input[type="password"] {
+        width: 100%;
+        padding: 15px;
+        margin: 10px 0;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+        font-size: 1rem;
+      }
 
-        button {
-            background-color: #1E90FF;
-            color: white;
-            width: 100%;
-            padding: 15px;
-            margin: 20px 0;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1rem;
-            transition: background-color 0.3s ease, transform 0.3s ease;
-        }
+      button {
+        background-color: #1e90ff;
+        color: white;
+        width: 100%;
+        padding: 15px;
+        margin: 20px 0;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1rem;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+      }
 
-        button:hover {
-            background-color: #1C86EE;
-            transform: scale(1.05);
-            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
-        }
+      button:hover {
+        background-color: #1c86ee;
+        transform: scale(1.02); /* Subtle scaling */
+        box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+      }
 
-        .blue-text {
-            color: #1E90FF; /* Blue color for text */
-        }
+      .blue-text {
+        color: #1e90ff; /* Blue color for text */
+      }
 
-        .container {
-            display: flex;
-            flex-direction: column;
-        }
-    </style>   
-</head>    
-<body>    
-    <form action='/login' method="POST">  
-        <h2>Log In to <span class="blue-text">Todo App</span></h2>
-        <div class="container">   
-            <label for="loginId">Email or Username:</label>   
-            <input type="text" placeholder="Enter Email or Username" name="loginId" required>  
+      .container {
+        display: flex;
+        flex-direction: column;
+      }
 
-            <label for="password">Password:</label>   
-            <input type="password" placeholder="Enter Password" name="password" required>  
+      .cursor {
+        cursor: pointer;
+      }
+      
+      p {
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <form action="/login" method="POST">
+      <h2>Log In to <span class="blue-text">Todo App</span></h2>
+      <div class="container">
+        <label for="loginId">Email or Username:</label>
+        <input
+          type="text"
+          placeholder="Enter Email or Username"
+          name="loginId"
+          required
+        />
 
-            <button type="submit">Login</button>   
-        </div>   
-    </form>     
-</body>     
+        <label for="password">Password:</label>
+        <input
+          type="password"
+          placeholder="Enter Password"
+          name="password"
+          required
+        />
+
+        <button type="submit">Login</button>
+        <p>Don't have an account?
+          <span class="blue-text redirect-signup cursor">Sign Up</span>
+        </p>
+      </div>
+    </form>
+    <script src="/login.js"></script>
+  </body>
 </html>

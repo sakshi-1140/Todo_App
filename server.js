@@ -43,7 +43,8 @@ app.use(express.static("public")); // Inbuilt middleware to serve static files (
 
 //API's
 app.get("/", (req, res) => {
-  return res.send("server is up and running");
+  return res.render("signUpPage");
+ // return res.send("server is up and running");
 });
 
 app.get("/signup", (req, res) => {
